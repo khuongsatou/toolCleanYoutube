@@ -1,0 +1,27 @@
+{
+  "name": "Clear Trang chủ youtube",
+  "version": "1.0",
+  "description": "Đây là tiện ích mở rộng đầu tiên của tôi",
+  "permissions": ["tabs", "activeTab", "storage", "https://www.facebook.com/*"],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/*",
+        "https://animehay.tv/",
+        "https://vuighe.net/",
+        "https://anime47.com/",
+        "https://xem.vn/",
+        "https://fptplay.vn/",
+        "https://www.youtube.com/"
+      ],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "browser_action": {
+    "default_title": "My Extentison",
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 2
+}

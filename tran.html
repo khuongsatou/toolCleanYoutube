@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        const playTTS = (text, lang) => {
+            // Get the audio element
+            const audioEl = document.getElementById('tts-audio');
+
+            const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&client=tw-ob&q=${text}`;
+
+            // add the sound to the audio element
+            audioEl.src = url;
+
+            //For auto playing the sound
+            audioEl.play();
+        };
+    </script>
+</head>
+
+<body>
+    <input type="text" id="text" />
+    <audio controls id="tts-audio"></audio>
+    <button onclick="playTTS('Tôi thì giỏi làm việc nhóm','vi');"> Speak it </button>
+</body>
+
+</html>
