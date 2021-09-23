@@ -13,7 +13,8 @@
         "https://xem.vn/",
         "https://fptplay.vn/",
         "https://www.youtube.com/",
-        "https://www.youtube.com/*"
+        "https://www.youtube.com/*",
+        "https://zingnews.vn/"
       ],
       "js": ["content.js"],
       "css": ["content.css"]

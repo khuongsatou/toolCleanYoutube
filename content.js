@@ -22,6 +22,11 @@ function createElementPage() {
   id_contents = document.getElementById("contents");
   if (Boolean(id_contents))
     id_contents.innerHTML = "<h1>Không có nội dung</h1>";
+
+  id_content_zing = document.getElementById("section-latest");
+  if (Boolean(id_content_zing)) {
+    id_content_zing.innerHTML = "<h1>Không có nội dung</h1>";
+  }
 }
 
 window.onload = () => {
