@@ -12,7 +12,8 @@
         "https://anime47.com/",
         "https://xem.vn/",
         "https://fptplay.vn/",
-        "https://www.youtube.com/"
+        "https://www.youtube.com/",
+        "https://www.youtube.com/*"
       ],
       "js": ["content.js"],
       "css": ["content.css"]

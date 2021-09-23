@@ -1,8 +1,27 @@
 function createElementPage() {
+  // Hide logo
+  logo_id = document.getElementById("logo");
+  if (Boolean(logo_id)) logo_id.innerHTML = "<h1></h1>";
+
   id = document.getElementsByClassName(
     "style-scope ytd-two-column-browse-results-renderer"
   );
-  id[0].innerHTML = "<h1>Không có nội dung</h1>";
+  if (Boolean(id)) {
+    if (id.length > 0) {
+      id[0].innerHTML = "<h1>Không có nội dung</h1>";
+    }
+  }
+
+  id2 = document.getElementsByClassName("style-scope ytd-rich-grid-renderer");
+  if (Boolean(id2)) {
+    if (id2.length > 0) {
+      id2[0].innerHTML = "<h1>Không có nội dung</h1>";
+    }
+  }
+
+  id_contents = document.getElementById("contents");
+  if (Boolean(id_contents))
+    id_contents.innerHTML = "<h1>Không có nội dung</h1>";
 }
 
 window.onload = () => {
