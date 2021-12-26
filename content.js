@@ -1,10 +1,11 @@
 TIME_OUT_COUNT_DOWN_SECONDS = 4;
 
 function createElementPage() {
-    const html_page = `<h1>Tool write by Khương</h1>
+    const html_page = `
+    <h1 style="margin-top:200px;">Tool write by Khương</h1>
     <h2>Extension</h2>
     <!-- The Modal -->
-    <div id="myModal" class="modal" style="display:block;">
+    <div id="myModal" class="modal" style="display:block;z-index:1000;margin-top:100px;">
         <!-- Modal content -->
         <div class="modal-content" style="margin:auto;">
             <div class="modal-header">
@@ -17,8 +18,8 @@ function createElementPage() {
                         <td>
                          <p id="show_message" style="color:white;font-weight:bold;font-size:30px;background-color:red;text-align:center;">INPUT</p>
                          <p id="demo" style="color:white;font-weight:bold;font-size:30px;background-color:red;text-align:center;">COUNT_DOWN</p>
-                          <p id="show_message_result" style="color:white;font-weight:bold;font-size:30px;background-color:red;text-align:center;">RESULT</p>
-                           
+                        <p id="show_message_result" style="color:white;font-weight:bold;font-size:30px;background-color:red;text-align:center;">RESULT</p>
+                               <input type="hidden" id="input_show_message_result_hide" value="1" style="width:100%;">
                         </td>
 
                         <td>
@@ -126,18 +127,25 @@ function createElementPage() {
 function handleCalc() {
     // let showMessage = document.getElementById("show_message");
     let showMessageResult = document.getElementById("show_message_result");
+    let inputShowMessageResultHide = document.getElementById(
+        "input_show_message_result_hide"
+    );
 
     list_number = [];
+    count = 0;
 
     let timerCalc = setInterval(() => {
         // init count down
+        count++;
         count_down_init = TIME_OUT_COUNT_DOWN_SECONDS;
         if (list_number.length >= 3) {
             clearInterval(timerCalc);
             // tính toán kết quả
             result = list_number.reduce(add, 0);
+            inputShowMessageResultHide.value = result;
+
             // tính xong kết quả thì thời gian cho count down sẽ là 6 : 5 4 3 2 1 -> thời gian nhập đáp án
-            countDown(6);
+            countDown(6, count);
             // 5s sau thì mới show kết quả
             let timerResult = setTimeout(() => {
                 showMessageResult.innerText = result;
@@ -147,7 +155,7 @@ function handleCalc() {
             numberRandom = Math.floor(Math.random() * 101);
             showNumber(numberRandom);
             // Countdown mặc định sẽ là 4 -> 3 2 1 0
-            countDown(4);
+            countDown(4, count);
             list_number.push(numberRandom);
         }
     }, 5000);
@@ -157,7 +165,7 @@ function add(accumulator, a) {
     return accumulator + a;
 }
 
-function showNumber(numberRandom = 0) {
+function showNumber(numberRandom = 0, count = 0) {
     showMessage = document.getElementById("show_message");
     showMessage.innerText = numberRandom;
 }
@@ -178,7 +186,7 @@ function countDown(countDownInit = 4) {
         document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
         if (distance < 0) {
             clearInterval(timer);
-            document.getElementById("demo").innerHTML = "EXPIRED";
+            document.getElementById("demo").innerHTML = count + " EXPIRED";
         }
     }, 1000);
 }
@@ -192,16 +200,19 @@ function closeModel() {
 }
 
 function checkAnswer() {
-    let result = document.getElementById("show_message_result").innerHTML;
+    let inputShowMessageResultHide = document.getElementById(
+        "input_show_message_result_hide"
+    );
+    let result = document.getElementById("input_show_message_result_hide").value;
     let inputRep = document.getElementById("input_rep").value;
-    console.log(parseInt(inputRep));
-    console.log(inputRep == parseInt(result));
+    console.log("In File: content.js, Line: 208", result);
     if (inputRep == parseInt(result)) {
         document.getElementById("show_message_result").innerHTML = "SUCCESS";
         closeModel();
     } else {
         document.getElementById("show_message_result").innerHTML = "TRY AGAIN";
         handleCalc();
+        inputShowMessageResultHide.value = "";
     }
 }
 
