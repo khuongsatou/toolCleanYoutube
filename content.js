@@ -150,6 +150,7 @@ function handleCalc() {
             let timerResult = setTimeout(() => {
                 showMessageResult.innerText = result;
                 clearTimeout(timerResult);
+                count = 0;
             }, 6000);
         } else {
             numberRandom = Math.floor(Math.random() * 101);
@@ -166,7 +167,7 @@ function add(accumulator, a) {
 }
 
 function showNumber(numberRandom = 0, count = 0) {
-    showMessage = document.getElementById("show_message");
+    let showMessage = document.getElementById("show_message");
     showMessage.innerText = numberRandom;
 }
 
@@ -191,7 +192,7 @@ function countDown(countDownInit = 4) {
     }, 1000);
 }
 
-function closeModel() {
+function closeModal() {
     let myModal = document.getElementById("myModal");
     let timer = setTimeout(() => {
         myModal.style.display = "none";
@@ -203,26 +204,50 @@ function checkAnswer() {
     let inputShowMessageResultHide = document.getElementById(
         "input_show_message_result_hide"
     );
+    // validate input emtpy
+    if (!Boolean(inputShowMessageResultHide)) {
+        return false;
+    }
+
+    let showMessage = document.getElementById("show_message");
+
     let result = document.getElementById("input_show_message_result_hide").value;
     let inputRep = document.getElementById("input_rep").value;
+    // Validate input
+    if (!Boolean(inputRep)) {
+        return false;
+    }
     console.log("In File: content.js, Line: 208", result);
     if (inputRep == parseInt(result)) {
         document.getElementById("show_message_result").innerHTML = "SUCCESS";
-        closeModel();
+        showMessage.value = "";
+        closeModal();
     } else {
         document.getElementById("show_message_result").innerHTML = "TRY AGAIN";
         handleCalc();
         inputShowMessageResultHide.value = "";
+        showMessage.innerText = "START";
     }
 }
 
 function initEvent() {
+    // check check answer
     document
         .getElementById("check_answer")
         .addEventListener("click", function() {
-            // alert("Hello World!");
             checkAnswer();
         });
+
+    // Cancel reload page when enter
+    document.getElementById("myForm").addEventListener(
+        "submit",
+        function(e) {
+            // alert("Enter is pressed!");
+            checkAnswer();
+            e.preventDefault();
+        },
+        false
+    );
 }
 
 window.onload = () => {
